@@ -2,9 +2,12 @@ package ru.lightdigital.tzlightdigital.user.service;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.lightdigital.tzlightdigital.user.model.User;
 import ru.lightdigital.tzlightdigital.user.repository.UserRepository;
+import ru.lightdigital.tzlightdigital.util.exception.AccessException;
+import ru.lightdigital.tzlightdigital.util.exception.BadRequestException;
 import ru.lightdigital.tzlightdigital.util.exception.NotFoundException;
 
 import java.util.List;
@@ -14,36 +17,51 @@ import java.util.List;
 @Slf4j
 public class UserServiceImpl implements UserService {
 
+    private PasswordEncoder passwordEncoder;
     private UserRepository userRepository;
 
-//    Администратор может смотреть список всех пользователей
     @Override
     public List<User> getAll() {
+        log.info("Количество пользователей всех ролей: {}", userRepository.findAll().size());
         return userRepository.findAll();
     }
 
     @Override
-    public User getById(Long id) {
+    public User getById(long id) {
         return userRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Пользователь не найден."));
+                .orElseThrow(() -> new NotFoundException("Пользователя не существует с id " + id + "."));
     }
 
-//    Администратор может назначить пользователя ролью оператора.
     @Override
-    public User changeRole(Long id) {
+    public User changeRole(long id) {
         User user = getById(id);
-        if (user.getRole().equals("ROLE_USER, ROLE_OPERATOR")) {
+
+        if (user.getRole().equals("ROLE_OPERATOR")) {
             log.info("{} уже является оператором!", user);
             return user;
         }
-        user.setRole(user.getRole() + ", ROLE_OPERATOR");
-        log.info("{} успешно стал оператором.", user);
-        return user;
+        if (user.getRole().equals("ROLE_USER")) {
+            user.setRole("ROLE_OPERATOR");
+            userRepository.saveAndFlush(user);
+            log.info("{} успешно стал оператором.", user);
+            return user;
+        }
+        if (user.getRole().equals("ROLE_ADMIN")) {
+            log.error("{} назначить роль оператора можно только на пользователей!", user);
+            throw new BadRequestException("Администратора нельзя понизить!");
+        }
+        throw new AccessException("Возможно, у Вас нет прав на использование этой команды!");
     }
 
-//    Метод простой регистрации
     @Override
     public User add(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+        if (user.getRole() == null) {
+            user.setRole("ROLE_USER");
+        }
+
+        log.info("{} успешно создан.", user);
         return userRepository.save(user);
     }
 }
