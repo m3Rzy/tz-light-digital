@@ -5,7 +5,7 @@ import lombok.*;
 @Getter
 @RequiredArgsConstructor
 public enum StatusRequest {
-    DRAFT("Черновек"),
+    DRAFT("Черновик"),
     SENT("Отправлено"),
     ACCEPTED("Принято"),
     REJECTED("Отклонено");
