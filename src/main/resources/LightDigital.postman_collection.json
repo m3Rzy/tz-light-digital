@@ -1,0 +1,390 @@
+{
+	"info": {
+		"_postman_id": "0cd956fd-3308-4d70-a230-b9b8e476b52b",
+		"name": "LightDigital",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19546929"
+	},
+	"item": [
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "add user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"hoiboi\",\r\n    \"phone\": \"+79533658890\",\r\n    \"password\": \"123321\",\r\n    \"role\": \"ROLE_USER\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/user",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add user Copy",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"theft\",\r\n    \"phone\": \"+79312408363\",\r\n    \"password\": \"123321\",\r\n    \"role\": \"ROLE_USER\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/user",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "read users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/user",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "requests",
+			"item": [
+				{
+					"name": "add request",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Sharer-User-Id",
+								"value": "1",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\": \"Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/request",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"request"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add request Copy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Sharer-User-Id",
+								"value": "1",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\": \"In a dapibus nulla. Aenean erat orci, egestas non orci at, varius tempus risus. Ut suscipit lorem magna, quis auctor leo molestie ac. Integer ut efficitur neque. Curabitur sollicitudin ipsum dolor, et tempus massa lacinia a. Donec efficitur egestas facilisis. Aliquam feugiat convallis arcu quis sollicitudin. Nullam eleifend iaculis sapien id scelerisque.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/request",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"request"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "read requests",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/request",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"request"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "change status",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "X-Sharer-User-Id",
+								"value": "2",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"statusRequest\": \"ACCEPTED\",\r\n    \"description\": \"In a dapibus nulla. Aenean erat orci, egestas non orci at, varius tempus risus. Ut suscipit lorem magna, quis auctor leo molestie ac. Integer ut efficitur neque. Curabitur sollicitudin ipsum dolor, et tempus massa lacinia a. Donec efficitur egestas facilisis. Aliquam feugiat convallis arcu quis sollicitudin. Nullam eleifend iaculis sapien id scelerisque.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/request",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"request"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "read requests Copy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/request",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"request"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "read requests filtered by ACCEPTED",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/request/filter?status=ACCEPTED",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"request",
+								"filter"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "ACCEPTED"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "read requests filtered by DRAFT",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/request/filter?status=DRAFT",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"request",
+								"filter"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "DRAFT"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "read requests filtered by SENT",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/request/filter?status=SENT",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"request",
+								"filter"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "SENT"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "read requests filtered by REJECTED",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/request/filter?status=REJECTED",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"request",
+								"filter"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "REJECTED"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "read requests sorted DESC",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/request/sort?sort=desc",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"request",
+								"sort"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "desc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "read requests sorted ASC",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/request/sort?sort=",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"request",
+								"sort"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "http://localhost:8080",
+			"type": "string"
+		}
+	]
+}

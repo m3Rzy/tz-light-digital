@@ -2,11 +2,13 @@ package ru.lightdigital.tzlightdigital.request.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import ru.lightdigital.tzlightdigital.user.model.User;
 
 @Entity
 @Table(name = "requests")
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class Request {
     @Id
@@ -17,8 +19,16 @@ public class Request {
     private StatusRequest statusRequest;
     @Column(name = "description", nullable = false)
     private String description;
-    @Column(name = "phone", nullable = false, unique = true)
-    private String phone;
-    @Column(name = "user_name", nullable = false)
-    private String userName;
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
+
+    @Override
+    public String toString() {
+        return "{Статус=" + statusRequest.getTitle() +
+                ", текст='" + description + '\'' +
+                ", тмя отправителя=" + user.getName() +
+                ", номер отправителя=" + user.getPhone() +
+                '}';
+    }
 }

@@ -22,11 +22,16 @@ public class UserServiceImpl implements UserService {
         return userRepository.findAll();
     }
 
+    @Override
+    public User getById(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Пользователь не найден."));
+    }
+
 //    Администратор может назначить пользователя ролью оператора.
     @Override
     public User changeRole(Long id) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("User not found."));
+        User user = getById(id);
         if (user.getRole().equals("ROLE_USER, ROLE_OPERATOR")) {
             log.info("{} уже является оператором!", user);
             return user;
