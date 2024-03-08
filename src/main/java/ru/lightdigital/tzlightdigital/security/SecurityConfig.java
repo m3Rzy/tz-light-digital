@@ -2,6 +2,7 @@ package ru.lightdigital.tzlightdigital.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -28,8 +29,10 @@ public class SecurityConfig {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/user", "/user/**").permitAll()
-                        .requestMatchers("/request/**").authenticated())
+                        .requestMatchers(HttpMethod.POST,"/user").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/user").hasAnyRole("ADMIN")
+                        .requestMatchers(HttpMethod.PATCH, "/user/**").hasAnyRole("ADMIN")
+                        .anyRequest().authenticated())
                 .formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
                 .build();
     }
