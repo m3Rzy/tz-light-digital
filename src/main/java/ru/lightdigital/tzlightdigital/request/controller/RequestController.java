@@ -17,25 +17,21 @@ public class RequestController {
     public static final String header = "X-Sharer-User-Id";
     private RequestService requestService;
 
-//    Просмотр всех обращений со всеми статусами у всех пользователей
     @GetMapping
     public List<Request> readRequests() {
         return requestService.getAll();
     }
 
-//    Просмотр обращения по id оператором
     @GetMapping("/{id}")
     public Request readRequest(@PathVariable Long id) {
         return requestService.getById(id);
     }
 
-//    Просмотр обращений с сортировкой
     @GetMapping("/sort")
     public List<Request> readRequestsBySort(@RequestParam(value = "sort", required = false) String sortDirection) {
         return requestService.getAllSorted(sortDirection);
     }
 
-//    Фильтрация по статусу обращения
     @GetMapping("/filter")
     public List<Request> readRequestsByStatusFilter(@RequestParam StatusRequest status) {
             return requestService.getAllByFilter(status);

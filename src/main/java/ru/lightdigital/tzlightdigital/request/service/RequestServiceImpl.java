@@ -29,7 +29,7 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     public List<Request> getAllByFilter(StatusRequest statusRequest) {
-        log.info("Найдены обращения по фильтру {}", statusRequest);
+        log.info("Обращения отфильтрованы по {}.", statusRequest);
         return requestRepository.findAll()
                 .stream()
                 .filter(i -> i.getStatusRequest().equals(statusRequest))
@@ -60,11 +60,13 @@ public class RequestServiceImpl implements RequestService {
     public Request add(Long userId, Request request) {
         request.setStatusRequest(StatusRequest.SENT);
         request.setUser(userService.getById(userId));
+        log.info("Обращение {} успешно добавлено в список отправленных.", request);
         return requestRepository.save(request);
     }
 
     @Override
     public void delete(Long id) {
+        log.info("Обращение с id {} успешно удалено!", id);
         requestRepository.delete(getById(id));
     }
 
