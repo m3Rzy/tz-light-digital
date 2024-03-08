@@ -1,6 +1,7 @@
 package ru.lightdigital.tzlightdigital.request.controller;
 
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import ru.lightdigital.tzlightdigital.request.model.Request;
 import ru.lightdigital.tzlightdigital.request.model.StatusRequest;
@@ -20,6 +21,13 @@ public class RequestController {
     @GetMapping
     public List<Request> readRequests() {
         return requestService.getAll();
+    }
+
+    @GetMapping("/page")
+    public Page<Request> readRequestsWithPagination(
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "5") int size) {
+        return requestService.getAllWithPagination(page, size);
     }
 
     @GetMapping("/{id}")

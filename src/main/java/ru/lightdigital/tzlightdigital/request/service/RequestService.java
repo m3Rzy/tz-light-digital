@@ -1,5 +1,6 @@
 package ru.lightdigital.tzlightdigital.request.service;
 
+import org.springframework.data.domain.Page;
 import ru.lightdigital.tzlightdigital.request.model.Request;
 import ru.lightdigital.tzlightdigital.request.model.StatusRequest;
 
@@ -12,6 +13,8 @@ public interface RequestService {
     List<Request> getAllByFilter(StatusRequest statusRequest);
 
     List<Request> getAllSorted(String sortDirection);
+
+    Page<Request> getAllWithPagination(int page, int size);
 
     Request getById(Long id);
 

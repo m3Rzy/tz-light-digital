@@ -2,6 +2,9 @@ package ru.lightdigital.tzlightdigital.request.service;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ru.lightdigital.tzlightdigital.request.model.Request;
@@ -25,6 +28,13 @@ public class RequestServiceImpl implements RequestService {
     public List<Request> getAll() {
         log.info("Количество обращений: {}", requestRepository.findAll().size());
         return requestRepository.findAll();
+    }
+
+    @Override
+    public Page<Request> getAllWithPagination(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        log.info("Используем пагинацию: {} страница, {} элементов.", page, size);
+        return requestRepository.findAll(pageable);
     }
 
     @Override
