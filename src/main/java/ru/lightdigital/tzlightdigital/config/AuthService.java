@@ -7,7 +7,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.lightdigital.tzlightdigital.user.dto.UserDtoInput;
-import ru.lightdigital.tzlightdigital.user.dto.UserDtoOutput;
 import ru.lightdigital.tzlightdigital.user.model.User;
 import ru.lightdigital.tzlightdigital.user.repository.UserRepository;
 import ru.lightdigital.tzlightdigital.util.exception.BadRequestException;
@@ -23,7 +22,6 @@ public class AuthService {
     private AuthenticationManager authenticationManager;
 
     public User signUp(User user) {
-
         try {
             if (user.getRole() == null) {
                 user.setRole("ROLE_USER");
@@ -34,13 +32,13 @@ public class AuthService {
             log.info("Пользователь {} успешно зарегистрировался.", user);
 
         } catch (Exception e) {
-            throw new BadRequestException("Ошибка регистрации пользователя!");
+            throw new BadRequestException("Ошибка регистрации пользователя! Возможно, пользователь уже существует.");
         }
         return user;
     }
 
-    public UserDtoOutput signIn(UserDtoInput userDtoInput) {
-        UserDtoOutput userDtoOutput = new UserDtoOutput();
+    public Token signIn(UserDtoInput userDtoInput) {
+        Token token = new Token();
         try {
             authenticationManager
                     .authenticate(new UsernamePasswordAuthenticationToken(
@@ -48,13 +46,12 @@ public class AuthService {
             User user = userRepository.findByPhone(userDtoInput.getPhone())
                     .orElseThrow(() -> new NotFoundException("Такой пользовать не зарегистрирован!"));
 
-            userDtoOutput.setPhone(userDtoInput.getPhone());
-            userDtoOutput.setPassword(userDtoInput.getPassword());
-            userDtoOutput.setToken(jwtService.generateToken(user));
+            token.setToken(jwtService.generateToken(user));
 
         } catch (Exception e) {
             throw new BadRequestException("Ошибка авторизации пользователя: " + e.getMessage());
         }
-        return userDtoOutput;
+        log.info("{}", token.getToken());
+        return token;
     }
 }

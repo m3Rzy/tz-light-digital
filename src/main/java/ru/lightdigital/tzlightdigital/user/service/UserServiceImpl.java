@@ -35,8 +35,8 @@ public class UserServiceImpl implements UserService {
         User user = getById(id);
 
         if (user.getRole().equals("ROLE_OPERATOR")) {
-            log.info("{} уже является оператором!", user);
-            return user;
+            log.error("{} уже является оператором!", user);
+            throw new BadRequestException(user + " уже является оператором!");
         }
         if (user.getRole().equals("ROLE_USER")) {
             user.setRole("ROLE_OPERATOR");

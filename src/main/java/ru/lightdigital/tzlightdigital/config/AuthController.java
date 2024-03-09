@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.lightdigital.tzlightdigital.user.dto.UserDtoInput;
-import ru.lightdigital.tzlightdigital.user.dto.UserDtoOutput;
 import ru.lightdigital.tzlightdigital.user.model.User;
 
 @RestController
@@ -21,7 +20,7 @@ public class AuthController {
     }
 
     @PostMapping("/signin")
-    public UserDtoOutput signIp(@RequestBody UserDtoInput userDtoInput) {
+    public Token signIp(@RequestBody UserDtoInput userDtoInput) {
         return authService.signIn(userDtoInput);
     }
 }
