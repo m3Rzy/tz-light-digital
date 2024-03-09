@@ -2,7 +2,6 @@ package ru.lightdigital.tzlightdigital.user.service;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.lightdigital.tzlightdigital.user.model.User;
 import ru.lightdigital.tzlightdigital.user.repository.UserRepository;
@@ -17,7 +16,6 @@ import java.util.List;
 @Slf4j
 public class UserServiceImpl implements UserService {
 
-    private PasswordEncoder passwordEncoder;
     private UserRepository userRepository;
 
     @Override
@@ -51,17 +49,5 @@ public class UserServiceImpl implements UserService {
             throw new BadRequestException("Администратора нельзя понизить!");
         }
         throw new AccessException("Возможно, у Вас нет прав на использование этой команды!");
-    }
-
-    @Override
-    public User add(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-
-        if (user.getRole() == null) {
-            user.setRole("ROLE_USER");
-        }
-
-        log.info("{} успешно создан.", user);
-        return userRepository.save(user);
     }
 }

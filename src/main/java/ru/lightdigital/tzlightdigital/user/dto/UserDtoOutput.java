@@ -4,8 +4,10 @@ import lombok.*;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class UserDtoOutput {
-    private String name;
     private String phone;
+    private String password;
+    private String token;
 }

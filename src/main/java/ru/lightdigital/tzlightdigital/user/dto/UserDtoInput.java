@@ -4,10 +4,9 @@ import lombok.*;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class UserDtoInput {
-    private long id;
-    private String name;
     private String phone;
     private String password;
 }

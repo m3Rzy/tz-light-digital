@@ -11,5 +11,4 @@ public interface UserService {
 
     User changeRole(long id);
 
-    User add(User user);
 }
