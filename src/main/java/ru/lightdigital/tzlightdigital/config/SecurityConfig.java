@@ -30,7 +30,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> request.requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/user/**").hasAnyAuthority("ROLE_ADMIN")
-                        .requestMatchers("/request/**").hasAnyAuthority("ROLE_USER")
+                        .requestMatchers("/request/**").hasAnyAuthority("ROLE_USER", "ROLE_OPERATOR", "ROLE_ADMIN")
                         .anyRequest().authenticated())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .exceptionHandling(Customizer.withDefaults())

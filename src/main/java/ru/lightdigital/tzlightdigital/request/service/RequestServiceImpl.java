@@ -11,10 +11,13 @@ import ru.lightdigital.tzlightdigital.request.model.Request;
 import ru.lightdigital.tzlightdigital.request.model.StatusRequest;
 import ru.lightdigital.tzlightdigital.request.repository.RequestRepository;
 import ru.lightdigital.tzlightdigital.user.service.UserService;
+import ru.lightdigital.tzlightdigital.util.exception.AccessException;
+import ru.lightdigital.tzlightdigital.util.exception.BadRequestException;
 import ru.lightdigital.tzlightdigital.util.exception.NotFoundException;
 
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static ru.lightdigital.tzlightdigital.request.model.StatusRequest.*;
 
 @Service
 @AllArgsConstructor
@@ -25,39 +28,54 @@ public class RequestServiceImpl implements RequestService {
     private UserService userService;
 
     @Override
-    public List<Request> getAll() {
-        log.info("Количество обращений: {}", requestRepository.findAll().size());
-        return requestRepository.findAll();
-    }
-
-    @Override
-    public Page<Request> getAllWithPagination(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
+    public Page<Request> getAllBySortWithPagination(int page, int size, String sortDirection) {
+        Pageable pageable;
+        if (sortDirection != null) {
+            if (sortDirection.equals("DESC")) {
+                log.info("Обращения отсортированы (сначала новые).");
+                pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "id"));
+            } else {
+                log.info("Обращения отсортированы (сначала старые).");
+                pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "id"));
+            }
+        } else {
+            log.info("Обращения без сортировки.");
+            pageable = PageRequest.of(page, size);
+        }
         log.info("Используем пагинацию: {} страница, {} элементов.", page, size);
         return requestRepository.findAll(pageable);
     }
 
     @Override
-    public List<Request> getAllByFilter(StatusRequest statusRequest) {
+    public List<Request> getAllByFilterStatusWithPagination(int page, int size, StatusRequest statusRequest) {
+        Pageable pageable = PageRequest.of(page, size);
         log.info("Обращения отфильтрованы по {}.", statusRequest);
-        return requestRepository.findAll()
-                .stream()
-                .filter(i -> i.getStatusRequest().equals(statusRequest))
-                .collect(Collectors.toList());
+        log.info("Используем пагинацию: {} страница, {} элементов.", page, size);
+        if (statusRequest != null) {
+            if (statusRequest.equals(DRAFT)) {
+                throw new AccessException("Нет доступа к просмотру черновиков у пользователей!");
+            }
+            if (statusRequest.equals(SENT) || statusRequest.equals(REJECTED) || statusRequest.equals(ACCEPTED)) {
+                return requestRepository.findAll(pageable)
+                        .stream()
+                        .filter(i -> i.getStatusRequest().equals(statusRequest)).toList();
+            }
+            throw new BadRequestException("Такого статуса не существует!");
+        }
+        throw new BadRequestException("Статус не может быть пустым!");
     }
 
     @Override
-    public List<Request> getAllSorted(String sortDirection) {
-        if (sortDirection != null) {
-            sortDirection = sortDirection.toUpperCase();
-
-            if (sortDirection.equals("DESC")) {
-                log.info("Обращения отсортированы (сначала новые).");
-                return requestRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
-            }
+    public List<Request> getAllByFilterUsernameWithPagination(int page, int size, String username) {
+        Pageable pageable = PageRequest.of(page, size);
+        log.info("Обращения отфильтрованы по {}.", username);
+        log.info("Используем пагинацию: {} страница, {} элементов.", page, size);
+        if (username != null) {
+                return requestRepository.findAll(pageable)
+                        .stream()
+                        .filter(i -> i.getUser().getName().equals(username)).toList();
         }
-        log.info("Обращения отсортированы (сначала старые).");
-        return requestRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
+        throw new BadRequestException("Имя не может быть пустым!");
     }
 
     @Override
@@ -68,9 +86,9 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     public Request add(Long userId, Request request) {
-        request.setStatusRequest(StatusRequest.SENT);
+        request.setStatusRequest(DRAFT);
         request.setUser(userService.getById(userId));
-        log.info("Обращение {} успешно добавлено в список отправленных.", request);
+        log.info("Обращение {} успешно добавлено в список черновиков.", request);
         return requestRepository.save(request);
     }
 
@@ -81,12 +99,16 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public Request changeStatusRequest(Long id, Request request) {
+    public Request patchRequest(Long id, Request request) {
         Request oldRequest = getById(id);
-        oldRequest.setStatusRequest(request.getStatusRequest());
-        oldRequest.setDescription(request.getDescription());
-        requestRepository.saveAndFlush(oldRequest);
-        log.info("{} успешно сменился.", oldRequest);
-        return oldRequest;
+        if (oldRequest.getStatusRequest().equals(DRAFT)) {
+            oldRequest.setDescription(request.getDescription());
+            oldRequest.setStatusRequest(request.getStatusRequest());
+            requestRepository.saveAndFlush(oldRequest);
+            log.info("{} успешно сменился.", oldRequest);
+            return oldRequest;
+        } else {
+            throw new BadRequestException("Нельзя изменить заявку, которая была отправлена, отклонена или принята!");
+        }
     }
 }

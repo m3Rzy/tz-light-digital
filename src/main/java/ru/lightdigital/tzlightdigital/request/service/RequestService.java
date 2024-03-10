@@ -8,13 +8,11 @@ import java.util.List;
 
 public interface RequestService {
 
-    List<Request> getAll();
+    List<Request> getAllByFilterStatusWithPagination(int page, int size, StatusRequest statusRequest);
 
-    List<Request> getAllByFilter(StatusRequest statusRequest);
+    List<Request> getAllByFilterUsernameWithPagination(int page, int size, String username);
 
-    List<Request> getAllSorted(String sortDirection);
-
-    Page<Request> getAllWithPagination(int page, int size);
+    Page<Request> getAllBySortWithPagination(int page, int size, String sortDirection);
 
     Request getById(Long id);
 
@@ -22,5 +20,5 @@ public interface RequestService {
 
     void delete(Long id);
 
-    Request changeStatusRequest(Long id, Request request);
+    Request patchRequest(Long id, Request request);
 }
