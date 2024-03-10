@@ -7,6 +7,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import ru.lightdigital.tzlightdigital.request.dto.RequestDtoInput;
 import ru.lightdigital.tzlightdigital.request.model.Request;
 import ru.lightdigital.tzlightdigital.request.model.StatusRequest;
 import ru.lightdigital.tzlightdigital.request.repository.RequestRepository;
@@ -96,6 +97,23 @@ public class RequestServiceImpl implements RequestService {
     public void delete(Long id) {
         log.info("Обращение с id {} успешно удалено!", id);
         requestRepository.delete(getById(id));
+    }
+
+    @Override
+    public Request changeStatus(Long id, RequestDtoInput requestDtoInput) {
+        Request oldRequest = getById(id);
+        if (requestDtoInput.getStatusRequest() != null) {
+            if (oldRequest.getStatusRequest().equals(SENT)) {
+                switch (requestDtoInput.getStatusRequest()) {
+                    case ACCEPTED -> oldRequest.setStatusRequest(ACCEPTED);
+                    case REJECTED -> oldRequest.setStatusRequest(REJECTED);
+                    default -> throw new BadRequestException("Обращение может быть принято или отклонено!");
+                }
+            }
+            throw new BadRequestException("Некорректный статус обращения. " +
+                    "Оператор может сменить статус только отправленным обращениям!");
+        }
+        throw new BadRequestException("Статус обращения не может быть пустым!");
     }
 
     @Override

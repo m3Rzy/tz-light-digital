@@ -29,8 +29,10 @@ public class SecurityConfig {
         httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> request.requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/admin/**").hasAnyAuthority("ROLE_ADMIN")
                         .requestMatchers("/user/**").hasAnyAuthority("ROLE_ADMIN")
-                        .requestMatchers("/request/**").hasAnyAuthority("ROLE_USER", "ROLE_OPERATOR", "ROLE_ADMIN")
+                        .requestMatchers("/operator/**").hasAnyAuthority("ROLE_OPERATOR")
+                        .requestMatchers("/request/**").hasAnyAuthority("ROLE_USER")
                         .anyRequest().authenticated())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .exceptionHandling(Customizer.withDefaults())

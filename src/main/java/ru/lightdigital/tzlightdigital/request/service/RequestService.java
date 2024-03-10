@@ -1,6 +1,7 @@
 package ru.lightdigital.tzlightdigital.request.service;
 
 import org.springframework.data.domain.Page;
+import ru.lightdigital.tzlightdigital.request.dto.RequestDtoInput;
 import ru.lightdigital.tzlightdigital.request.model.Request;
 import ru.lightdigital.tzlightdigital.request.model.StatusRequest;
 
@@ -21,4 +22,6 @@ public interface RequestService {
     void delete(Long id);
 
     Request patchRequest(Long id, Request request);
+
+    Request changeStatus(Long id, RequestDtoInput requestDtoInput);
 }
