@@ -4,13 +4,5 @@ spring:
     username: postgres
     password: 123321
     driver-class-name: org.postgresql.Driver
-  jpa:
-    database: postgresql
-    hibernate:
-      ddl-auto: create-drop
-    properties:
-      hibernate:
-        format_sql: true
-  sql:
-    init:
-      mode: always
+  liquibase:
+    change-log: db/changelog/main-changelog.xml
