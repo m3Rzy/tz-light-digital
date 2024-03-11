@@ -9,9 +9,9 @@ import ru.lightdigital.tzlightdigital.user.service.UserService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/admin/user")
 @AllArgsConstructor
-public class UserController {
+public class AdminUserController {
 
     private UserService userService;
 

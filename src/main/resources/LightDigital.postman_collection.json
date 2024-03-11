@@ -7,72 +7,358 @@
 	},
 	"item": [
 		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "signup ROLE_USER",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Илья\",\r\n    \"phone\": \"79533658890\",\r\n    \"password\": \"123321\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/signup",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "signup ROLE_USER 2",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Юлиана\",\r\n    \"phone\": \"79533658899\",\r\n    \"password\": \"123321\",\r\n    \"role\": \"ROLE_USER\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/signup",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "signup ROLE_OPERATOR",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Мария\",\r\n    \"phone\": \"79312408777\",\r\n    \"password\": \"123321\",\r\n    \"role\": \"ROLE_OPERATOR\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/signup",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "signup ROLE_ADMIN",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Ольга\",\r\n    \"phone\": \"79312408363\",\r\n    \"password\": \"123321\",\r\n    \"role\": \"ROLE_ADMIN\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/signup",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "signin ROLE_USER 1",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"phone\": \"79533658890\",\r\n    \"password\": \"123321\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/signin",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "signin ROLE_USER 2",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"phone\": \"79533658899\",\r\n    \"password\": \"123321\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/signin",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "signin ROLE_OPERATOR 3",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"phone\": \"79312408777\",\r\n    \"password\": \"123321\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/signin",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "signin ROLE_ADMIN 4",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"phone\": \"79312408363\",\r\n    \"password\": \"123321\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/signin",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{key}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/logout",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "users",
 			"item": [
 				{
-					"name": "add User 1",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"hoiboi\",\r\n    \"phone\": \"+79533658890\",\r\n    \"password\": \"123321\",\r\n    \"role\": \"ROLE_USER\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/user",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"user"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "add User 2",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"theft\",\r\n    \"phone\": \"+79312408363\",\r\n    \"password\": \"123321\",\r\n    \"role\": \"ROLE_USER\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/user",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"user"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "read users",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{key}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/user",
+							"raw": "{{url}}/admin/user",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
+								"admin",
 								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "change User 2 from ROLE_USER to ROLE_OPERATOR",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{key}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"phone\": \"+79312408123\",\r\n    \"password\": \"111\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/admin/user/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"admin",
+								"user",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "read User 1",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{key}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/admin/user/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"admin",
+								"user",
+								"2"
 							]
 						}
 					},
@@ -86,17 +372,21 @@
 				{
 					"name": "add Request 1 of User 1",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{key}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
-						"header": [
-							{
-								"key": "X-Sharer-User-Id",
-								"value": "1",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"description\": \"Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.\"\r\n}",
+							"raw": "{\r\n    \"description\": \"Реально Ильи что ли?\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -118,6 +408,16 @@
 				{
 					"name": "add Request 2 of User 1",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{key}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [
 							{
@@ -128,7 +428,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"description\": \"In a dapibus nulla. Aenean erat orci, egestas non orci at, varius tempus risus. Ut suscipit lorem magna, quis auctor leo molestie ac. Integer ut efficitur neque. Curabitur sollicitudin ipsum dolor, et tempus massa lacinia a. Donec efficitur egestas facilisis. Aliquam feugiat convallis arcu quis sollicitudin. Nullam eleifend iaculis sapien id scelerisque.\"\r\n}",
+							"raw": "{\r\n    \"description\": \"Это точно не Юлианы!\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -150,6 +450,16 @@
 				{
 					"name": "add Request 3 of User 1",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{key}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [
 							{
@@ -160,7 +470,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"description\": \"In a dapibus nulla. Aenean erat orci, egestas non orci at, varius tempus risus. Ut suscipit lorem magna, quis auctor leo molestie ac. Integer ut efficitur neque. Curabitur sollicitudin ipsum dolor, et tempus massa lacinia a. Donec efficitur egestas facilisis. Aliquam feugiat convallis arcu quis sollicitudin. Nullam eleifend iaculis sapien id scelerisque.\"\r\n}",
+							"raw": "{\r\n    \"description\": \"In a dapibus nulla. Aenean erat orci, egestas non orci at, varius tempus risus. Ut suscipit lorem magna, quis auctor leo molestie ac. Integer ut \"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -182,17 +492,21 @@
 				{
 					"name": "add Request 4 of User 1",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{key}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
-						"header": [
-							{
-								"key": "X-Sharer-User-Id",
-								"value": "1",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"description\": \"In a dapibus nulla. Aenean erat orci, egestas non orci at, varius tempus risus. Ut suscipit lorem magna, quis auctor leo molestie ac. Integer ut efficitur neque. Curabitur sollicitudin ipsum dolor, et tempus massa lacinia a. Donec efficitur egestas facilisis. Aliquam feugiat convallis arcu quis sollicitudin. Nullam eleifend iaculis sapien id scelerisque.\"\r\n}",
+							"raw": "{\r\n    \"description\": \"In a dapibus nulla. Aenean erat orci, egestas non orci at, varius tempus risus. Ut suscipit lorem magna, quis auctor leo molestie ac. Integer ut efficitur neque.e.\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -206,41 +520,6 @@
 							],
 							"path": [
 								"request"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "read requests",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{url}}/request",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"request"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "read request by id 1",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{url}}/request/1",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"request",
-								"1"
 							]
 						}
 					},
@@ -249,81 +528,27 @@
 				{
 					"name": "update Request 2 status to ACCEPTED of User 1",
 					"request": {
-						"method": "PATCH",
-						"header": [
-							{
-								"key": "X-Sharer-User-Id",
-								"value": "2",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"statusRequest\": \"ACCEPTED\",\r\n    \"description\": \"In a dapibus nulla. Aenean erat orci, egestas non orci at, varius tempus risus. Ut suscipit lorem magna, quis auctor leo molestie ac. Integer ut efficitur neque. Curabitur sollicitudin ipsum dolor, et tempus massa lacinia a. Donec efficitur egestas facilisis. Aliquam feugiat convallis arcu quis sollicitudin. Nullam eleifend iaculis sapien id scelerisque.\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{key}}",
+									"type": "string"
 								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/request",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"request"
 							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "update Request 3 status to DRAFT of User 1",
-					"request": {
+						},
 						"method": "PATCH",
 						"header": [
 							{
-								"key": "X-Sharer-User-Id",
-								"value": "3",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"statusRequest\": \"DRAFT\",\r\n    \"description\": \"In a dapibus nulla. Aenean erat orci, egestas non orci at, varius tempus risus. Ut suscipit lorem magna, quis auctor leo molestie ac. Integer ut efficitur neque. Curabitur sollicitudin ipsum dolor, et tempus massa lacinia a. Donec efficitur egestas facilisis. Aliquam feugiat convallis arcu quis sollicitudin. Nullam eleifend iaculis sapien id scelerisque.\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/request",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"request"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "update Request 4 status to REJECTED of User 1",
-					"request": {
-						"method": "PATCH",
-						"header": [
-							{
-								"key": "X-Sharer-User-Id",
+								"key": "X-Sharer-Request-Id",
 								"value": "4",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"statusRequest\": \"REJECTED\",\r\n    \"description\": \"In a dapibus nulla. Aenean erat orci, egestas non orci at, varius tempus risus. Ut suscipit lorem magna, quis auctor leo molestie ac. Integer ut efficitur neque. Curabitur sollicitudin ipsum dolor, et tempus massa lacinia a. Donec efficitur egestas facilisis. Aliquam feugiat convallis arcu quis sollicitudin. Nullam eleifend iaculis sapien id scelerisque.\"\r\n}",
+							"raw": "{\r\n    \"statusRequest\": \"DRAFT\",\r\n    \"description\": \"НОВЫЙ ТЕКС1232132133211\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -343,136 +568,40 @@
 					"response": []
 				},
 				{
-					"name": "read requests",
+					"name": "read own user requests",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{key}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/request",
+							"raw": "{{url}}/request?page=0&size=15&sort=DESC",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"request"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "filtered by ACCEPTED",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{url}}/request/filter?status=ACCEPTED",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"request",
-								"filter"
 							],
 							"query": [
 								{
-									"key": "status",
-									"value": "ACCEPTED"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "filtered by DRAFT",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{url}}/request/filter?status=DRAFT",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"request",
-								"filter"
-							],
-							"query": [
+									"key": "page",
+									"value": "0"
+								},
 								{
-									"key": "status",
-									"value": "DRAFT"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "filtered by SENT",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{url}}/request/filter?status=SENT",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"request",
-								"filter"
-							],
-							"query": [
-								{
-									"key": "status",
-									"value": "SENT"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "filtered by REJECTED",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{url}}/request/filter?status=REJECTED",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"request",
-								"filter"
-							],
-							"query": [
-								{
-									"key": "status",
-									"value": "REJECTED"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "sorted DESC",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{url}}/request/sort?sort=desc",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"request",
-								"sort"
-							],
-							"query": [
+									"key": "size",
+									"value": "15"
+								},
 								{
 									"key": "sort",
-									"value": "desc"
+									"value": "DESC"
 								}
 							]
 						}
@@ -480,20 +609,39 @@
 					"response": []
 				},
 				{
-					"name": "sorted ASC",
+					"name": "+ admin get requests sort",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{key}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/request/sort?sort=",
+							"raw": "{{url}}/admin/request/sort?page=0&size=5&sort=",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
+								"admin",
 								"request",
 								"sort"
 							],
 							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "5"
+								},
 								{
 									"key": "sort",
 									"value": ""
@@ -504,18 +652,29 @@
 					"response": []
 				},
 				{
-					"name": "read requests with pagination 5 elements",
+					"name": "+ admin get requests filter name",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{key}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/request/page?page=0&size=5",
+							"raw": "{{url}}/admin/request/name?page=0&size=5&name=Илья",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
+								"admin",
 								"request",
-								"page"
+								"name"
 							],
 							"query": [
 								{
@@ -525,6 +684,10 @@
 								{
 									"key": "size",
 									"value": "5"
+								},
+								{
+									"key": "name",
+									"value": "Илья"
 								}
 							]
 						}
@@ -532,18 +695,29 @@
 					"response": []
 				},
 				{
-					"name": "read requests with pagination page=0 size=2",
+					"name": "??? admin get requests by filter status",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{key}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/request/page?page=0&size=2",
+							"raw": "{{url}}/admin/request/status?page=0&size=5&status=REJECTED",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
+								"admin",
 								"request",
-								"page"
+								"status"
 							],
 							"query": [
 								{
@@ -552,6 +726,238 @@
 								},
 								{
 									"key": "size",
+									"value": "5"
+								},
+								{
+									"key": "status",
+									"value": "REJECTED"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "operator get request by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{key}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/operator/request/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"operator",
+								"request",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "operator get request by sort",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{key}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/operator/request/sort?sort=DESC",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"operator",
+								"request",
+								"sort"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "DESC"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "operator get request by name",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{key}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/operator/request/name?name=Юлиана",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"operator",
+								"request",
+								"name"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Юлиана"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "operator patch status request by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{key}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"statusRequest\": \"DRAFT\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/operator/request?id=1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"operator",
+								"request"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "operator patch status request by id Copy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{key}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"statusRequest\": \"ACCEPTED\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/operator/request?id=1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"operator",
+								"request"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "operator patch status request by id Copy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{key}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"statusRequest\": \"REJECTED\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/operator/request?id=2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"operator",
+								"request"
+							],
+							"query": [
+								{
+									"key": "id",
 									"value": "2"
 								}
 							]
@@ -560,27 +966,42 @@
 					"response": []
 				},
 				{
-					"name": "read requests with pagination page=1 size=2 Copy",
+					"name": "operator patch status request by id Copy 2",
 					"request": {
-						"method": "GET",
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{key}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"statusRequest\": \"SENT\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{url}}/request/page?page=1&size=2",
+							"raw": "{{url}}/operator/request?id=1",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
-								"request",
-								"page"
+								"operator",
+								"request"
 							],
 							"query": [
 								{
-									"key": "page",
+									"key": "id",
 									"value": "1"
-								},
-								{
-									"key": "size",
-									"value": "2"
 								}
 							]
 						}
@@ -614,6 +1035,11 @@
 		{
 			"key": "url",
 			"value": "http://localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "key",
+			"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI3OTUzMzY1ODg5MCIsImlhdCI6MTcxMDE2NjI1NCwiZXhwIjoxNzEwMTc0NjU0fQ.5WkN2UiunaGZsb4uClo8_Ik5aALbH5xt1xlNt894j-s",
 			"type": "string"
 		}
 	]

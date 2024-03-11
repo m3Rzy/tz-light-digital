@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -32,10 +33,12 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> request.requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/admin/**").hasAnyAuthority("ROLE_ADMIN")
-                        .requestMatchers("/user/**").hasAnyAuthority("ROLE_ADMIN")
                         .requestMatchers("/operator/**").hasAnyAuthority("ROLE_OPERATOR")
                         .requestMatchers("/request/**").hasAnyAuthority("ROLE_USER")
                         .anyRequest().authenticated())
+                .logout(l -> l.logoutUrl("/logout")
+                        .logoutSuccessUrl("/logout")
+                        .logoutSuccessHandler(((request, response, authentication) -> SecurityContextHolder.clearContext())))
                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .exceptionHandling(Customizer.withDefaults())
                 .authenticationProvider(authenticationProvider()).addFilterBefore(
