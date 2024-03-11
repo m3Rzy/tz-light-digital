@@ -17,11 +17,11 @@ public interface RequestService {
 
     Request getById(Long id);
 
-    Request add(Long userId, Request request);
+    Request add(Long id, Request request);
 
-    void delete(Long id);
+//    Request patchRequest(Long id, Request request);
 
-    Request patchRequest(Long id, Request request);
+    Request sendRequest(Long id, Request request);
 
-    Request changeStatus(Long id, RequestDtoInput requestDtoInput);
+    Request acceptOrRejectRequest(Long id, RequestDtoInput requestDtoInput);
 }

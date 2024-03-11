@@ -86,21 +86,15 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public Request add(Long userId, Request request) {
+    public Request add(Long id, Request request) {
         request.setStatusRequest(DRAFT);
-        request.setUser(userService.getById(userId));
+        request.setUser(userService.getById(id));
         log.info("Обращение {} успешно добавлено в список черновиков.", request);
         return requestRepository.save(request);
     }
 
     @Override
-    public void delete(Long id) {
-        log.info("Обращение с id {} успешно удалено!", id);
-        requestRepository.delete(getById(id));
-    }
-
-    @Override
-    public Request changeStatus(Long id, RequestDtoInput requestDtoInput) {
+    public Request acceptOrRejectRequest(Long id, RequestDtoInput requestDtoInput) {
         Request oldRequest = getById(id);
         if (requestDtoInput.getStatusRequest() != null) {
             if (oldRequest.getStatusRequest().equals(SENT)) {
@@ -117,16 +111,34 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public Request patchRequest(Long id, Request request) {
-        Request oldRequest = getById(id);
-        if (oldRequest.getStatusRequest().equals(DRAFT)) {
-            oldRequest.setDescription(request.getDescription());
-            oldRequest.setStatusRequest(request.getStatusRequest());
-            requestRepository.saveAndFlush(oldRequest);
-            log.info("{} успешно сменился.", oldRequest);
-            return oldRequest;
+    public Request sendRequest(Long id, Request request) {
+        if (request.getStatusRequest() != null && request.getDescription() != null) {
+            Request oldRequest = getById(id);
+            if (oldRequest.getStatusRequest().equals(DRAFT) && oldRequest.getDescription() != null) {
+                oldRequest.setStatusRequest(SENT);
+                oldRequest.setDescription(request.getDescription());
+                requestRepository.saveAndFlush(oldRequest);
+                log.info("{} успешно сменился.", oldRequest);
+                return oldRequest;
+            } else {
+                throw new BadRequestException("Нельзя изменить заявку, которая была отправлена, отклонена или принята!");
+            }
         } else {
-            throw new BadRequestException("Нельзя изменить заявку, которая была отправлена, отклонена или принята!");
+            throw new BadRequestException("Обращение нельзя отправить без сообщения или без статуса.");
         }
     }
+//
+//    @Override
+//    public Request patchRequest(Long id, Request request) {
+//        Request oldRequest = getById(id);
+//        if (oldRequest.getStatusRequest().equals(DRAFT)) {
+//            oldRequest.setDescription(request.getDescription());
+//            oldRequest.setStatusRequest(request.getStatusRequest());
+//            requestRepository.saveAndFlush(oldRequest);
+//            log.info("{} успешно сменился.", oldRequest);
+//            return oldRequest;
+//        } else {
+//            throw new BadRequestException("Нельзя изменить заявку, которая была отправлена, отклонена или принята!");
+//        }
+//    }
 }

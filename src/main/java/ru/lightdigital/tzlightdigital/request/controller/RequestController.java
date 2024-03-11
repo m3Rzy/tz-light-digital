@@ -11,7 +11,6 @@ import ru.lightdigital.tzlightdigital.request.service.RequestService;
 @AllArgsConstructor
 public class RequestController {
 
-    public static final String header = "X-Sharer-User-Id";
     private RequestService requestService;
 
     @GetMapping("/{id}")
@@ -19,15 +18,7 @@ public class RequestController {
         return requestService.getById(id);
     }
 
-    @PostMapping
-    @PreAuthorize("hasAuthority('ROLE_USER')")
-    public Request saveRequest(@RequestHeader(header) Long userId, @RequestBody Request request) {
-        return requestService.add(userId, request);
-    }
 
-    @PatchMapping
-    public Request patchRequestWithStatusRequestDraft(@RequestHeader(header) Long userId,
-                                       @RequestBody Request request) {
-        return requestService.patchRequest(userId, request);
-    }
+
+
 }

@@ -25,6 +25,6 @@ public class OperatorRequestController {
     @PreAuthorize("hasAuthority('ROLE_OPERATOR')")
     public Request changeStatusRequest(@RequestParam long id,
                                        @RequestBody RequestDtoInput requestDtoInput) {
-        return requestService.changeStatus(id, requestDtoInput);
+        return requestService.acceptOrRejectRequest(id, requestDtoInput);
     }
 }

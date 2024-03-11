@@ -27,7 +27,7 @@ public class Request {
     public String toString() {
         return "{Статус=" + statusRequest.getTitle() +
                 ", текст='" + description + '\'' +
-                ", тмя отправителя=" + user.getName() +
+                ", имя отправителя=" + user.getName() +
                 ", номер отправителя=" + user.getPhone() +
                 '}';
     }
