@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Илья\",\r\n    \"phone\": \"79533658890\",\r\n    \"password\": \"123321\"\r\n}",
+							"raw": "{\r\n    \"name\": \"user1\",\r\n    \"phone\": \"79875654874\",\r\n    \"password\": \"123\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -43,7 +43,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Юлиана\",\r\n    \"phone\": \"79533658899\",\r\n    \"password\": \"123321\",\r\n    \"role\": \"ROLE_USER\"\r\n}",
+							"raw": "{\r\n    \"name\": \"user2\",\r\n    \"phone\": \"79999999999\",\r\n    \"password\": \"123\",\r\n    \"role\": \"ROLE_USER\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -70,7 +70,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Мария\",\r\n    \"phone\": \"79312408777\",\r\n    \"password\": \"123321\",\r\n    \"role\": \"ROLE_OPERATOR\"\r\n}",
+							"raw": "{\r\n    \"name\": \"operator1\",\r\n    \"phone\": \"78889999999\",\r\n    \"password\": \"123\",\r\n    \"role\": \"ROLE_OPERATOR\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -97,7 +97,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Ольга\",\r\n    \"phone\": \"79312408363\",\r\n    \"password\": \"123321\",\r\n    \"role\": \"ROLE_ADMIN\"\r\n}",
+							"raw": "{\r\n    \"name\": \"admin1\",\r\n    \"phone\": \"79312402222\",\r\n    \"password\": \"123\",\r\n    \"role\": \"ROLE_ADMIN\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -124,7 +124,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"phone\": \"79533658890\",\r\n    \"password\": \"123321\"\r\n}",
+							"raw": "{\r\n    \"phone\": \"79875654874\",\r\n    \"password\": \"123\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -151,7 +151,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"phone\": \"79533658899\",\r\n    \"password\": \"123321\"\r\n}",
+							"raw": "{\r\n    \"phone\": \"79999999999\",\r\n    \"password\": \"123\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -178,7 +178,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"phone\": \"79312408777\",\r\n    \"password\": \"123321\"\r\n}",
+							"raw": "{\r\n    \"phone\": \"78889999999\",\r\n    \"password\": \"123\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -205,7 +205,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"phone\": \"79312408363\",\r\n    \"password\": \"123321\"\r\n}",
+							"raw": "{\r\n    \"phone\": \"79312402222\",\r\n    \"password\": \"123\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -386,7 +386,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"description\": \"Реально Ильи что ли?\"\r\n}",
+							"raw": "{\r\n    \"description\": \"request1\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -428,7 +428,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"description\": \"Это точно не Юлианы!\"\r\n}",
+							"raw": "{\r\n    \"description\": \"request2\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -470,7 +470,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"description\": \"In a dapibus nulla. Aenean erat orci, egestas non orci at, varius tempus risus. Ut suscipit lorem magna, quis auctor leo molestie ac. Integer ut \"\r\n}",
+							"raw": "{\r\n    \"description\": \"request3\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -506,7 +506,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"description\": \"In a dapibus nulla. Aenean erat orci, egestas non orci at, varius tempus risus. Ut suscipit lorem magna, quis auctor leo molestie ac. Integer ut efficitur neque.e.\"\r\n}",
+							"raw": "{\r\n    \"description\": \"request4\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1039,7 +1039,7 @@
 		},
 		{
 			"key": "key",
-			"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI3OTUzMzY1ODg5MCIsImlhdCI6MTcxMDE2NjI1NCwiZXhwIjoxNzEwMTc0NjU0fQ.5WkN2UiunaGZsb4uClo8_Ik5aALbH5xt1xlNt894j-s",
+			"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI3OTUzMzY1ODg5MCIsImlhdCI6MTcxMDE2OTkzMCwiZXhwIjoxNzEwMTc4MzMwfQ.GjfP_l0HFxaDsvbySH3k60GUj19EPCapn68Kuueebr8",
 			"type": "string"
 		}
 	]
