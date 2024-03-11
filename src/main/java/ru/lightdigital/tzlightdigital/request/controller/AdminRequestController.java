@@ -1,17 +1,15 @@
 package ru.lightdigital.tzlightdigital.request.controller;
 
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.lightdigital.tzlightdigital.request.model.Request;
 import ru.lightdigital.tzlightdigital.request.model.StatusRequest;
 import ru.lightdigital.tzlightdigital.request.service.RequestService;
 
 import java.util.List;
+
+import static ru.lightdigital.tzlightdigital.request.model.StatusRequest.DRAFT;
 
 @RestController
 @RequestMapping("/admin/request")
@@ -22,11 +20,13 @@ public class AdminRequestController {
 //    сортировка по актуальности с пагинацией +
     @GetMapping("/sort")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    public Page<Request> readRequestsBySortWithPagination(
+    public List<Request> readRequestsBySortWithPagination(
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "5") int size,
             @RequestParam(value = "sort", required = false) String sortDirection) {
-        return requestService.getAllBySortWithPagination(page, size, sortDirection);
+        return requestService.getAllBySortWithPagination(page, size, sortDirection)
+                .stream()
+                .filter(i -> !i.getStatusRequest().equals(DRAFT)).toList();
     }
 
 //    фильтрация по статусу обращения с пагинацией
