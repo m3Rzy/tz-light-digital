@@ -1,7 +1,6 @@
 package ru.lightdigital.tzlightdigital.request.controller;
 
 import lombok.AllArgsConstructor;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.lightdigital.tzlightdigital.request.model.Request;
 import ru.lightdigital.tzlightdigital.request.service.RequestService;
@@ -17,8 +16,5 @@ public class RequestController {
     public Request readRequest(@PathVariable Long id) {
         return requestService.getById(id);
     }
-
-
-
 
 }

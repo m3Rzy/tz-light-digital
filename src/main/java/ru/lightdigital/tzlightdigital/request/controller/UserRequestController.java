@@ -14,6 +14,7 @@ import ru.lightdigital.tzlightdigital.user.repository.UserRepository;
 import ru.lightdigital.tzlightdigital.util.exception.AccessException;
 
 import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -51,15 +52,13 @@ public class UserRequestController {
 //    отправить заявку
     @PatchMapping
     @PreAuthorize("hasAuthority('ROLE_USER')")
-    public Request sendRequest(@RequestHeader(requestHeader) Long requestId,
+    public Request updateRequest(@RequestHeader(requestHeader) Long requestId,
                                @RequestBody Request request, @AuthenticationPrincipal Principal principal) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         String phone = userDetails.getUsername();
 
         Optional<User> userOptional = userRepository.findByPhone(phone);
-        System.out.println(userOptional.toString());
-
 
         Long userId;
         if (userOptional.isPresent()) {
@@ -73,5 +72,29 @@ public class UserRequestController {
         } else {
             throw new AccessException("Не удалось найти пользователя с номером: " + phone);
         }
+    }
+
+    @GetMapping
+    @PreAuthorize("hasAuthority('ROLE_USER')")
+    public List<Request> readRequestsBySortWithPagination(
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "5") int size,
+            @RequestParam(value = "sort", required = false) String sortDirection,
+            @AuthenticationPrincipal Principal principal) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String phone = userDetails.getUsername();
+
+        Optional<User> userOptional = userRepository.findByPhone(phone);
+        Long userId;
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            userId = user.getId();
+        } else {
+            throw new AccessException("Не удалось найти пользователя с номером: " + phone);
+        }
+
+        return requestService.getPersonalRequestsWithSortWithPagination(page, size, sortDirection, userId);
     }
 }

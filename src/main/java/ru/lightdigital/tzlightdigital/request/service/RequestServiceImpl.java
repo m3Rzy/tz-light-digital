@@ -48,6 +48,29 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
+    public List<Request> getPersonalRequestsWithSortWithPagination(int page, int size,
+                                                                   String sortDirection, Long userId) {
+        Pageable pageable;
+        if (sortDirection != null) {
+            if (sortDirection.equals("DESC")) {
+                log.info("Обращения отсортированы (сначала новые).");
+                pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "id"));
+            } else {
+                log.info("Обращения отсортированы (сначала старые).");
+                pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "id"));
+            }
+        } else {
+            log.info("Обращения без сортировки.");
+            pageable = PageRequest.of(page, size);
+        }
+        log.info("Используем пагинацию: {} страница, {} элементов.", page, size);
+        return requestRepository.findAll(pageable)
+                .stream()
+                .filter(i -> i.getUser().getId().equals(userId))
+                .toList();
+    }
+
+    @Override
     public List<Request> getAllByFilterStatusWithPagination(int page, int size, StatusRequest statusRequest) {
         Pageable pageable = PageRequest.of(page, size);
         log.info("Обращения отфильтрованы по {}.", statusRequest);
@@ -98,24 +121,40 @@ public class RequestServiceImpl implements RequestService {
         Request oldRequest = getById(id);
         if (requestDtoInput.getStatusRequest() != null) {
             if (oldRequest.getStatusRequest().equals(SENT)) {
-                switch (requestDtoInput.getStatusRequest()) {
-                    case ACCEPTED -> oldRequest.setStatusRequest(ACCEPTED);
-                    case REJECTED -> oldRequest.setStatusRequest(REJECTED);
-                    default -> throw new BadRequestException("Обращение может быть принято или отклонено!");
+                if (requestDtoInput.getStatusRequest().equals(ACCEPTED)) {
+                    oldRequest.setStatusRequest(ACCEPTED);
+                    requestRepository.saveAndFlush(oldRequest);
+                    log.info("Обращение {} принято.", oldRequest);
+                } else if (requestDtoInput.getStatusRequest().equals(REJECTED)) {
+                    oldRequest.setStatusRequest(REJECTED);
+                    requestRepository.saveAndFlush(oldRequest);
+                    log.info("Обращение {} отклонено.", oldRequest);
+                } else if (requestDtoInput.getStatusRequest().equals(DRAFT)) {
+                    throw new BadRequestException("Обращению невозможно присвоить статус <черновик>!");
+                } else if (requestDtoInput.getStatusRequest().equals(SENT)) {
+                    throw new BadRequestException("Обращение можно либо принять, либо отклонить!");
+                } else {
+                    throw new BadRequestException("Некорректный статус обращения. " +
+                            "Оператор может сменить статус только отправленным обращениям!");
                 }
+            } else {
+                throw new BadRequestException("Статус обращения можно сменить только у отправленных!");
             }
-            throw new BadRequestException("Некорректный статус обращения. " +
-                    "Оператор может сменить статус только отправленным обращениям!");
+        } else {
+            throw new BadRequestException("Статус обращения не может быть пустым!");
         }
-        throw new BadRequestException("Статус обращения не может быть пустым!");
+        return oldRequest;
     }
 
     @Override
     public Request sendRequest(Long id, Request request) {
         if (request.getStatusRequest() != null && request.getDescription() != null) {
+            if (request.getStatusRequest().equals(ACCEPTED) || request.getStatusRequest().equals(REJECTED)) {
+                throw new AccessException("У вас нет прав изменять статус обращения на: принято/отклонено!");
+            }
             Request oldRequest = getById(id);
             if (oldRequest.getStatusRequest().equals(DRAFT) && oldRequest.getDescription() != null) {
-                oldRequest.setStatusRequest(SENT);
+                oldRequest.setStatusRequest(request.getStatusRequest());
                 oldRequest.setDescription(request.getDescription());
                 requestRepository.saveAndFlush(oldRequest);
                 log.info("{} успешно сменился.", oldRequest);
@@ -127,18 +166,4 @@ public class RequestServiceImpl implements RequestService {
             throw new BadRequestException("Обращение нельзя отправить без сообщения или без статуса.");
         }
     }
-//
-//    @Override
-//    public Request patchRequest(Long id, Request request) {
-//        Request oldRequest = getById(id);
-//        if (oldRequest.getStatusRequest().equals(DRAFT)) {
-//            oldRequest.setDescription(request.getDescription());
-//            oldRequest.setStatusRequest(request.getStatusRequest());
-//            requestRepository.saveAndFlush(oldRequest);
-//            log.info("{} успешно сменился.", oldRequest);
-//            return oldRequest;
-//        } else {
-//            throw new BadRequestException("Нельзя изменить заявку, которая была отправлена, отклонена или принята!");
-//        }
-//    }
 }

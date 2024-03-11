@@ -15,6 +15,8 @@ public interface RequestService {
 
     Page<Request> getAllBySortWithPagination(int page, int size, String sortDirection);
 
+    List<Request> getPersonalRequestsWithSortWithPagination(int page, int size, String sortDirection, Long userId);
+
     Request getById(Long id);
 
     Request add(Long id, Request request);
